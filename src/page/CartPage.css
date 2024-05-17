@@ -72,3 +72,18 @@
   .cart-page__payment-button:hover {
     background-color: #45a049;
   }
+
+
+
+.cart-page__delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .cart-page__delete-button:hover {
+    background-color: darkred;
+  }
