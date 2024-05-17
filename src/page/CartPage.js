@@ -47,6 +47,11 @@ function CartPage() {
     razorpay.open();
   };
 
+  const handleRemoveFromCart = (productId) => {
+    const updatedCart = cart.filter(item => item.id !== productId);
+    setCart(updatedCart);
+  };
+
   return (
     <div>
       <Navbar />
@@ -60,6 +65,7 @@ function CartPage() {
                 <h2 className="cart-page__title">{item.title}</h2>
                 <p className="cart-page__price">Price: ${item.price}</p>
                 <p className="cart-page__quantity">Quantity: {item.quantity}</p>
+                <button onClick={() => handleRemoveFromCart(item.id)} className="cart-page__delete-button">Delete</button>
               </div>
             </li>
           ))}
@@ -79,3 +85,4 @@ function CartPage() {
 }
 
 export default CartPage;
+
