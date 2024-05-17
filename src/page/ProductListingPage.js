@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 function ProductListingPage() {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -25,14 +24,21 @@ function ProductListingPage() {
   }, []);
 
   const addToCart = (product) => {
-    console.log("Adding product to cart:", product); // Debugging
+    const storedCart = localStorage.getItem('cart');
+    const cart = storedCart ? JSON.parse(storedCart) : [];
     const existingProduct = cart.find(item => item.id === product.id);
+
     if (existingProduct) {
-      setCart(prevCart => prevCart.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item));
+      const updatedCart = cart.map(item => 
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
     } else {
-      setCart(prevCart => [...prevCart, { ...product, quantity: 1 }]);
+      const updatedCart = [...cart, { ...product, quantity: 1 }];
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
     }
-    console.log("Updated cart:", cart); // Debugging
+
+    history.push('/cart');
   };
 
   return (
@@ -45,8 +51,8 @@ function ProductListingPage() {
               <img src={product.thumbnail} alt={product.title} />
               <h2>{product.title}</h2>
               <p>{product.description}</p>
-              <p className="price">Price: 2000</p>              <button onClick={() => addToCart(product)}>Add to Cart</button>
-              <Link to="/cart">View Cart</Link>
+              <p className="price">Price: {product.price}</p>
+              <button onClick={() => addToCart(product)}>Add to Cart</button>
             </div>
           ))}
         </div>
