@@ -7,20 +7,16 @@ const calculateTotalValue = (cart) => {
 };
 
 function CartPage() {
-  const [cart, setCart] = React.useState(() => {
+  const [cart, setCart] = useState(() => {
     const storedCart = localStorage.getItem('cart');
     return storedCart ? JSON.parse(storedCart) : [];
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  let totalValue = 0;
-
-  if (cart && cart.length > 0) {
-    totalValue = calculateTotalValue(cart);
-  }
+  const totalValue = calculateTotalValue(cart);
 
   const displayRazorpay = async () => {
     const options = {
@@ -49,12 +45,6 @@ function CartPage() {
   const createRazorpayInstance = (options) => {
     const razorpay = new window.Razorpay(options);
     razorpay.open();
-  };
-
-  const createOrder = async () => {
-  };
-
-  const verifyPayment = async (paymentId, signature, orderId) => {
   };
 
   return (
