@@ -23,7 +23,7 @@ function CartPage() {
       key: 'rzp_test_DVusCxH0NlgOyA',
       amount: totalValue * 100, 
       currency: 'INR',
-      name: 'Your Company Name',
+      name: 'goat tech',
       description: 'Your Product Purchase',
       handler: function (response) {
         alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
